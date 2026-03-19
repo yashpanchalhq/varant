@@ -5,7 +5,7 @@
 **Track:** Open Innovation
 **Team:** Syntax Terror — KCC Institute of Technology & Management
 **Members:** Yash Panchal · Shivam Kumar · Shambhavi Mishra · Shubhanshu Singh
-**Live Demo:** [varant.ai](https://varant.ai)
+**Live Demo:** [varant.ai](https://varant-ai.vercel.app/)
 
 ---
 
