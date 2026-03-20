@@ -1,5 +1,5 @@
 "use client";
-
+import { useAuth, UserButton, SignInButton } from "@clerk/nextjs";
 import { useRef, useEffect } from "react";
 import Link from "next/link";
 import {
@@ -24,7 +24,7 @@ if (typeof window !== "undefined") {
 
 export default function VarantLandingPage() {
   const containerRef = useRef<HTMLDivElement>(null);
-
+  const isSignedIn = useAuth()
   useGSAP(
     () => {
       // Hero Entrance
@@ -142,6 +142,15 @@ export default function VarantLandingPage() {
           </div>
 
           <div className="flex items-center gap-4">
+            {isSignedIn ? (
+              <UserButton />
+            ) : (
+              <SignInButton mode="modal">
+                <button className="text-xs font-semibold tracking-[0.1em] uppercase px-5 py-2.5 rounded-full border border-[#1A1510]/20 hover:bg-[#1A1510]/5 transition-colors text-[#1A1510]">
+                  Sign in
+                </button>
+              </SignInButton>
+            )}
             <Link
               href="/demo"
               className="bg-[#1A1510] text-white text-xs font-semibold tracking-[0.1em] uppercase px-5 py-2.5 rounded-full hover:bg-[#9B1C1C] transition-colors block"

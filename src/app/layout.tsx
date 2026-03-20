@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display, Lora } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from '@clerk/nextjs';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,13 +33,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        suppressHydrationWarning
-        className={`${inter.variable} ${playfair.variable} ${lora.variable} font-[family-name:var(--font-inter)] antialiased bg-[#F5F5F7] text-[#3D3D3D] min-h-screen selection:bg-[#E8711A]/20 selection:text-[#E8711A] relative overflow-x-hidden`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          suppressHydrationWarning
+          className={`${inter.variable} ${playfair.variable} ${lora.variable} font-[family-name:var(--font-inter)] antialiased bg-[#F5F5F7] text-[#3D3D3D] min-h-screen selection:bg-[#E8711A]/20 selection:text-[#E8711A] relative overflow-x-hidden`}
+        >
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
