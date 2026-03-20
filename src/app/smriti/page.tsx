@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -60,20 +60,20 @@ function MimamsaStatus({ entry, onUpdate }: { entry: VicharEntry; onUpdate: () =
       {!editing ? (
         <button
           onClick={() => setEditing(true)}
-          className="text-[11px] font-semibold text-[#9B1C1C] border border-[#9B1C1C]/30 px-3 py-1.5 rounded-full hover:bg-[#9B1C1C]/5 transition-colors"
+          className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#9B1C1C] border border-[#9B1C1C]/30 px-5 py-2.5 rounded-full hover:bg-[#9B1C1C]/5 transition-all active:scale-95 shadow-sm"
         >
           ⚖ Mimamsa due — What actually happened?
         </button>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-3">
           <textarea
-            className="w-full text-[13px] p-3 border border-[#E8E3DC] rounded-xl bg-white/80 resize-none focus:outline-none focus:border-[#D97706]/50"
+            className="w-full text-[14px] p-4 border border-[#E8E3DC] rounded-xl bg-white/90 resize-none focus:outline-none focus:border-[#D97706]/50 shadow-inner"
             rows={3}
             placeholder="What actually happened? Was the decision right?"
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-          <div className="flex gap-2">
+          <div className="flex gap-3">
             <button
               onClick={async () => {
                 setSaving(true);
@@ -93,7 +93,7 @@ function MimamsaStatus({ entry, onUpdate }: { entry: VicharEntry; onUpdate: () =
             </button>
             <button
               onClick={() => setEditing(false)}
-              className="text-[12px] text-[#A0998F] px-3 py-1.5 rounded-full hover:bg-[#F5F2EE] transition-colors"
+              className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#A0998F] px-5 py-2.5 rounded-full hover:bg-[#F5F2EE] transition-all active:scale-95"
             >
               Cancel
             </button>
@@ -140,20 +140,37 @@ export default function SmritiPage() {
   const avgMatra = (() => {
     const scored = entries.filter((e) => e.matraScore);
     if (!scored.length) return null;
-    return Math.round(scored.reduce((s, e) => s + (e.matraScore ?? 0), 0) / scored.length);
+    return Math.round(
+      scored.reduce((s, e) => s + (e.matraScore ?? 0), 0) / scored.length,
+    );
   })();
 
   return (
     <>
       <div className="fixed inset-0 z-[-2] varant-council-bg" />
-      <div className="varant-grain-overlay fixed inset-0 z-[-1]" aria-hidden="true" />
+      <div
+        className="varant-grain-overlay fixed inset-0 z-[-1]"
+        aria-hidden="true"
+      />
       <main className="min-h-screen pb-24 font-sans">
 
         {/* Header */}
         <div className="pt-6 px-4 sm:px-6 sticky top-4 z-50 flex justify-center">
           <div className="bg-white/90 backdrop-blur-xl border border-[#E8E3DC]/80 rounded-full px-5 py-2.5 shadow-[0_2px_12px_rgba(0,0,0,0.04)] flex items-center justify-between gap-8 max-w-2xl w-full">
             <Link href="/" className="text-[15px] font-semibold text-[#1A1510]">
-              <span className="bg-[linear-gradient(135deg,#D97706_0%,#9B1C1C_50%,#1E3A8A_100%)] bg-clip-text text-transparent">v</span>arant
+              <span className="bg-[linear-gradient(135deg,#D97706_0%,#9B1C1C_50%,#1E3A8A_100%)] bg-clip-text text-transparent">
+                v
+              </span>
+              arant
+            </Link>
+            <span className="text-[11px] font-semibold text-[#78716c] uppercase tracking-[0.12em]">
+              स्मृति · The Memory
+            </span>
+            <Link
+              href="/demo"
+              className="text-[13px] font-medium text-[#9B1C1C] hover:underline"
+            >
+              New Vichar →
             </Link>
             <span className="text-[11px] font-semibold text-[#78716c] uppercase tracking-[0.12em]">Smriti · The Memory</span>
             <div className="flex items-center gap-3">
@@ -169,13 +186,24 @@ export default function SmritiPage() {
           {entries.length > 0 && (
             <div className="grid grid-cols-3 gap-4 mb-10">
               {[
-                { value: entries.length, label: 'Vichars' },
-                { value: avgMatra !== null ? `${avgMatra}%` : '—', label: 'Avg Matra' },
-                { value: entries.filter((e) => e.mimamsaOutcome).length, label: 'Reviewed' },
+                { value: entries.length, label: "Vichars" },
+                {
+                  value: avgMatra !== null ? `${avgMatra}%` : "—",
+                  label: "Avg Matra",
+                },
+                {
+                  value: entries.filter((e) => e.mimamsaOutcome).length,
+                  label: "Reviewed",
+                },
               ].map(({ value, label }) => (
-                <div key={label} className="varant-council-card rounded-2xl p-5 text-center">
+                <div
+                  key={label}
+                  className="varant-council-card rounded-2xl p-5 text-center"
+                >
                   <p className="text-3xl font-bold text-[#1A1510]">{value}</p>
-                  <p className="text-[11px] text-[#A0998F] uppercase tracking-widest mt-1">{label}</p>
+                  <p className="text-[11px] text-[#A0998F] uppercase tracking-widest mt-1">
+                    {label}
+                  </p>
                 </div>
               ))}
             </div>
