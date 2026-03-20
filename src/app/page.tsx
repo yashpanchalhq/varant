@@ -370,9 +370,9 @@ export default function VarantLandingPage() {
             </div>
             <div className="flex flex-col gap-4">
               <h4 className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#1A1510] mb-2">Legal</h4>
-              <Link href="#" className="text-sm text-[#666] hover:text-[#9B1C1C] transition-colors">Privacy</Link>
-              <Link href="#" className="text-sm text-[#666] hover:text-[#9B1C1C] transition-colors">Terms of Service</Link>
-              <Link href="#" className="text-sm text-[#666] hover:text-[#9B1C1C] transition-colors">Contact</Link>
+              <Link href="/privacy" className="text-sm text-[#666] hover:text-[#9B1C1C] transition-colors">Privacy</Link>
+              <Link href="/terms" className="text-sm text-[#666] hover:text-[#9B1C1C] transition-colors">Terms of Service</Link>
+              <Link href="/contact" className="text-sm text-[#666] hover:text-[#9B1C1C] transition-colors">Contact</Link>
             </div>
           </div>
         </div>
