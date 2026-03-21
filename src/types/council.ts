@@ -6,6 +6,7 @@ export type CouncilRequestType = 'persona' | 'interruption_question' | 'tension_
 export interface Persona {
     id: PersonaId;
     name: string;
+    sanskrit: string;
     color: string;
     borderClass: string;
     bgClass: string;

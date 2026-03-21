@@ -24,7 +24,7 @@ if (typeof window !== "undefined") {
 
 export default function VarantLandingPage() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isSignedIn = useAuth()
+  const isSignedIn = useAuth();
   useGSAP(
     () => {
       // Hero Entrance
@@ -139,6 +139,12 @@ export default function VarantLandingPage() {
             >
               Pricing
             </button>
+            <Link
+              href="/team"
+              className="text-xs font-semibold uppercase tracking-[0.15em] text-[#767676] hover:text-[#1A1510] transition-colors"
+            >
+              Team Sabha
+            </Link>
           </div>
 
           <div className="flex items-center gap-4">
@@ -772,13 +778,22 @@ export default function VarantLandingPage() {
             <span className="italic font-light opacity-60">Your Smriti.</span>
           </h2>
 
-          <div className="v-slide-up mb-12">
+          <div className="v-slide-up mb-12 flex flex-col md:flex-row justify-center gap-4">
             <Link
               href="/demo"
               className="inline-flex items-center gap-4 bg-white text-[#1A1510] px-10 py-5 rounded-full hover:scale-105 transition-all shadow-[0_0_40px_rgba(255,255,255,0.1)]"
             >
               <span className="text-sm font-semibold uppercase tracking-[0.15em]">
                 Begin Your Vichar
+              </span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/team"
+              className="inline-flex items-center gap-4 bg-transparent border border-white/20 text-white px-10 py-5 rounded-full hover:bg-white/5 transition-all"
+            >
+              <span className="text-sm font-semibold uppercase tracking-[0.15em]">
+                Convene Team Sabha
               </span>
               <ArrowRight className="w-4 h-4" />
             </Link>
@@ -843,6 +858,12 @@ export default function VarantLandingPage() {
               >
                 Pricing
               </button>
+              <Link
+                href="/team"
+                className="text-sm text-[#666] hover:text-[#9B1C1C] transition-colors"
+              >
+                Team Sabha
+              </Link>
               <Link
                 href="#"
                 className="text-sm text-[#666] hover:text-[#9B1C1C] transition-colors"

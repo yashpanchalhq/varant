@@ -67,6 +67,7 @@ export const PERSONAS: Persona[] = [
     {
         id: 'skeptic',
         name: 'Vitarka',
+        sanskrit: 'वितर्क',
         color: 'red',
         borderClass: 'border-l-red-500',
         bgClass: 'bg-red-500/10',
@@ -77,6 +78,7 @@ export const PERSONAS: Persona[] = [
     {
         id: 'optimist',
         name: 'Asha',
+        sanskrit: 'आशा',
         color: 'green',
         borderClass: 'border-l-green-500',
         bgClass: 'bg-green-500/10',
@@ -87,6 +89,7 @@ export const PERSONAS: Persona[] = [
     {
         id: 'pragmatist',
         name: 'Yukti',
+        sanskrit: 'युक्ति',
         color: 'yellow',
         borderClass: 'border-l-yellow-500',
         bgClass: 'bg-yellow-500/10',
@@ -97,6 +100,7 @@ export const PERSONAS: Persona[] = [
     {
         id: 'devils-advocate',
         name: 'Vipaksha',
+        sanskrit: 'विपक्ष',
         color: 'blue',
         borderClass: 'border-l-blue-500',
         bgClass: 'bg-blue-500/10',

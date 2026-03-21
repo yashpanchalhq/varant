@@ -31,25 +31,33 @@ export default function InterruptionModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 pb-20">
       <div
-        className="absolute inset-0 bg-[#0F0C08]/30 backdrop-blur-sm"
+        className="absolute inset-0 bg-[#1A1510]/40 backdrop-blur-sm"
         onClick={onSkip}
         aria-hidden="true"
       />
 
-      <div className="relative w-full max-w-lg bg-white rounded-2xl p-8 md:p-10 shadow-[0_24px_64px_rgba(0,0,0,0.12),0_0_0_1px_rgba(26,21,16,0.04)] flex flex-col gap-6">
+      <div className="relative w-full max-w-lg bg-white border border-[#E8E3DC] p-8 md:p-10 flex flex-col gap-6 shadow-xl rounded-2xl">
         <div className="flex items-center gap-4">
-          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#F5F2EC] text-[#1A1510]">
+          <div className="flex items-center justify-center w-10 h-10 border border-[#E8E3DC] bg-[#F5F2EC] text-[#9B1C1C]">
             {icon}
           </div>
           <div>
-            <p className="text-[10px] font-semibold tracking-[0.2em] text-[#767676] uppercase">
-              {persona.name} asks
+            <p
+              style={{
+                fontFamily: "var(--font-mono), IBM Plex Mono, monospace",
+              }}
+              className="text-[9px] font-bold tracking-[0.2em] text-[#767676] uppercase"
+            >
+              {persona.name} ASKS
             </p>
           </div>
         </div>
 
         <div className="relative">
-          <div className="text-[#1A1510] text-xl md:text-2xl font-[family-name:var(--font-display)] leading-[1.35] tracking-tight">
+          <div
+            style={{ fontFamily: "var(--font-cormorant), Cormorant, serif" }}
+            className="text-[#1A1510] text-xl md:text-2xl italic leading-[1.35] tracking-tight border-l-2 border-[#9B1C1C]/30 pl-6"
+          >
             <MarkdownRenderer content={question.replace(/^"|"$/g, "")} />
           </div>
         </div>
@@ -58,8 +66,9 @@ export default function InterruptionModal({
           <textarea
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
-            placeholder="Your answer..."
-            className="w-full bg-[#FAF9F7] border border-[#E8E3DC] rounded-xl p-5 text-[15px] text-[#1A1510] placeholder:text-[#B8B0A8] focus:outline-none focus:border-[#D97706]/30 focus:ring-2 focus:ring-[#D97706]/10 transition-all duration-200 resize-none h-28"
+            placeholder="How will you respond?"
+            style={{ fontFamily: "var(--font-dm-sans), DM Sans, sans-serif" }}
+            className="w-full bg-[#F5F2EC] border border-[#E8E3DC] p-5 text-[15px] text-[#1A1510] placeholder:text-[#767676] focus:outline-none focus:border-[#9B1C1C] transition-all resize-none h-28"
           />
         </div>
 
@@ -67,15 +76,17 @@ export default function InterruptionModal({
           <button
             onClick={() => onAnswer(answer)}
             disabled={!answer.trim()}
-            className="flex-1 bg-[#1A1510] text-white py-3 rounded-full text-[14px] font-medium hover:bg-[#9B1C1C] disabled:bg-[#D5CEC6] disabled:cursor-not-allowed transition-all duration-200"
+            style={{ fontFamily: "var(--font-mono), IBM Plex Mono, monospace" }}
+            className="flex-1 bg-[#1A1510] text-white py-4 text-[11px] font-bold uppercase tracking-widest transition-all disabled:opacity-30 disabled:cursor-not-allowed hover:bg-[#9B1C1C]"
           >
-            Answer & Continue
+            ANSWER & CONTINUE →
           </button>
           <button
             onClick={onSkip}
-            className="flex-1 py-3 rounded-full text-[14px] font-medium border border-[#E8E3DC] text-[#3D3830] hover:bg-[#F5F2EC] transition-all duration-200"
+            style={{ fontFamily: "var(--font-mono), IBM Plex Mono, monospace" }}
+            className="flex-1 py-4 text-[11px] font-bold uppercase tracking-widest border border-[#E8E3DC] text-[#767676] hover:bg-[#F5F2EC] transition-all"
           >
-            Skip
+            SKIP
           </button>
         </div>
       </div>

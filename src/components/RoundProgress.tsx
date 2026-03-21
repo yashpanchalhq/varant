@@ -23,21 +23,24 @@ export default function RoundProgress({ currentRound }: RoundProgressProps) {
             className="flex items-center gap-1 sm:gap-1.5 min-w-0"
           >
             <div
-              className={`flex items-center gap-1 sm:gap-1.5 text-[9px] sm:text-[10px] uppercase tracking-[0.12em] font-semibold transition-colors duration-300 truncate ${
+              style={{
+                fontFamily: "var(--font-mono), IBM Plex Mono, monospace",
+              }}
+              className={`flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-[11px] uppercase tracking-[0.15em] font-bold transition-colors duration-300 truncate ${
                 isActive
-                  ? "text-[#1A1510]"
+                  ? "text-[#9B1C1C]"
                   : isCompleted
-                    ? "text-[#767676]"
-                    : "text-[#B8B0A8]"
+                    ? "text-[#1A1510]"
+                    : "text-[#767676]/40"
               }`}
             >
               <div
-                className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors duration-300 ${
+                className={`w-1.5 h-1.5 shrink-0 transition-colors duration-300 rounded-full ${
                   isActive
-                    ? "bg-[#D97706]"
+                    ? "bg-[#9B1C1C] shadow-[0_0_8px_rgba(155,28,28,0.4)]"
                     : isCompleted
-                      ? "bg-[#767676]"
-                      : "bg-[#E8E3DC]"
+                      ? "bg-[#1A1510]"
+                      : "bg-[#767676]/20"
                 }`}
               />
               <span className="hidden sm:inline">{step.label}</span>
@@ -45,8 +48,8 @@ export default function RoundProgress({ currentRound }: RoundProgressProps) {
             </div>
             {idx < steps.length - 1 && (
               <div
-                className={`w-3 h-px shrink-0 transition-colors duration-300 ${
-                  isCompleted ? "bg-[#767676]/40" : "bg-[#E8E3DC]"
+                className={`w-4 h-px shrink-0 transition-colors duration-300 ${
+                  isCompleted ? "bg-[#E8E3DC]" : "bg-[#E8E3DC]/50"
                 }`}
               />
             )}

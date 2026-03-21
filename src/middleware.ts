@@ -7,8 +7,12 @@ const isProtectedRoute = createRouteMatcher([
   '/demo(.*)',
 ]);
 
+const isPublicApiRoute = createRouteMatcher([
+  '/api/team(.*)',
+]);
+
 export default clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) {
+  if (isProtectedRoute(req) && !isPublicApiRoute(req)) {
     await auth.protect();
   }
 });

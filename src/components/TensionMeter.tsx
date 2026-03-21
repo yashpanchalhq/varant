@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 interface TensionMeterProps {
   score: number | null;
@@ -8,10 +8,10 @@ interface TensionMeterProps {
 }
 
 function getTensionLabel(score: number): string {
-  if (score >= 71) return 'High Tension';
-  if (score >= 41) return 'Moderate';
-  if (score >= 1) return 'Low Tension';
-  return 'Aligned';
+  if (score >= 71) return "High Tension";
+  if (score >= 41) return "Moderate";
+  if (score >= 1) return "Low Tension";
+  return "Aligned";
 }
 
 export default function TensionMeter({ score, className }: TensionMeterProps) {
@@ -28,23 +28,26 @@ export default function TensionMeter({ score, className }: TensionMeterProps) {
 
   return (
     <div
-      className={`varant-council-card rounded-2xl p-5 ${className || ''}`}
+      className={`border border-[#E8E3DC] p-5 bg-white rounded-2xl shadow-sm ${className || ""}`}
     >
       <div className="flex flex-col gap-4">
-        <div className="flex items-baseline justify-between gap-3">
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="h-px w-3 bg-[linear-gradient(90deg,#D97706,#9B1C1C)] opacity-60" />
-            <span className="text-[10px] font-semibold text-[#78716c] uppercase tracking-[0.12em]">
-              संघर्ष
-            </span>
-          </div>
-          <span className="text-lg font-semibold text-[#1A1510] leading-none">
+        <div className="flex items-baseline justify-between">
+          <span
+            style={{ fontFamily: "var(--font-mono), IBM Plex Mono, monospace" }}
+            className="text-[9px] font-bold text-[#767676] uppercase tracking-widest"
+          >
+            SANGHARSHA
+          </span>
+          <span
+            style={{ fontFamily: "var(--font-mono), IBM Plex Mono, monospace" }}
+            className="text-[11px] font-bold text-[#9B1C1C] uppercase tracking-widest"
+          >
             {getTensionLabel(score)}
           </span>
         </div>
-        <div className="w-full h-2.5 bg-[#E7E5E4] rounded-full overflow-hidden">
+        <div className="w-full h-2 bg-[#F5F2EC] rounded-full overflow-hidden border border-[#E8E3DC]/50">
           <div
-            className="h-full rounded-full transition-all duration-700 ease-out bg-[linear-gradient(90deg,#16A34A_0%,#CA8A04_45%,#9B1C1C_100%)]"
+            className="h-full transition-all duration-1000 ease-out bg-[#9B1C1C] rounded-full"
             style={{ width: `${animatedWidth}%` }}
           />
         </div>

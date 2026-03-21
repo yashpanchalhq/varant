@@ -6,9 +6,10 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
 model Vichar {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId         String   // ← add this
+  userId         String // ← add this
   question       String
   context        String?
   verdictRaw     String
@@ -21,4 +22,37 @@ model Vichar {
   updatedAt      DateTime @updatedAt
 
   @@index([userId])
+}
+
+model TeamSession {
+  id        String        @id @default(auto()) @map("_id") @db.ObjectId
+  code      String        @unique
+  decision  String
+  context   String        @default("")
+  status    String        @default("waiting") // waiting | active | complete
+  members   TeamMember[]
+  messages  TeamMessage[]
+  shastra   String? // final verdict JSON
+  createdAt DateTime      @default(now())
+}
+
+model TeamMember {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId String      @db.ObjectId
+  session   TeamSession @relation(fields: [sessionId], references: [id])
+  name      String
+  role      String
+  color     String
+  isHost    Boolean     @default(false)
+  joinedAt  DateTime    @default(now())
+}
+
+model TeamMessage {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId  String      @db.ObjectId
+  session    TeamSession @relation(fields: [sessionId], references: [id])
+  memberName String
+  content    String
+  type       String // prashna | activity
+  createdAt  DateTime    @default(now())
 }
