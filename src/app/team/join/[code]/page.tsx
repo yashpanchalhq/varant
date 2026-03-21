@@ -3,7 +3,14 @@
 import React, { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 
-const ROLES = ["Co-founder", "Advisor", "Investor", "Domain Expert"];
+const PRESET_ROLES = [
+  "Co-founder",
+  "Advisor",
+  "Investor",
+  "Domain Expert",
+  "Product Manager",
+  "Research Lead",
+];
 
 interface TeamSession {
   id: string;
@@ -20,7 +27,9 @@ export default function JoinSessionPage({
 
   const [session, setSession] = useState<TeamSession | null>(null);
   const [name, setName] = useState("");
-  const [selectedRole, setSelectedRole] = useState(ROLES[0]);
+  const [selectedRole, setSelectedRole] = useState("Co-founder");
+  const [customRole, setCustomRole] = useState("");
+  const [isCustom, setIsCustom] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -40,7 +49,8 @@ export default function JoinSessionPage({
 
   const handleJoin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    const finalRole = isCustom ? customRole : selectedRole;
+    if (!name.trim() || !finalRole.trim()) return;
     setLoading(true);
     try {
       const res = await fetch(`/api/team/${code}/join`, {
@@ -48,7 +58,7 @@ export default function JoinSessionPage({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: name.trim(),
-          role: selectedRole || "Co-founder",
+          role: finalRole.trim(),
         }),
       });
 
@@ -68,7 +78,7 @@ export default function JoinSessionPage({
         JSON.stringify({
           id: data.memberId,
           name: name.trim(),
-          role: selectedRole,
+          role: finalRole.trim(),
           color: data.color,
           isHost: false,
           code,
@@ -83,6 +93,9 @@ export default function JoinSessionPage({
       setLoading(false);
     }
   };
+
+  const isButtonDisabled =
+    loading || !name.trim() || (!selectedRole && !customRole.trim());
 
   return (
     <main className="min-h-screen bg-[#FAF9F7] text-[#1A1510] flex flex-col items-center px-6 pt-[120px] pb-20 selection:bg-[#9B1C1C]/20">
@@ -169,35 +182,87 @@ export default function JoinSessionPage({
                 style={{
                   fontFamily: "var(--font-mono), IBM Plex Mono, monospace",
                 }}
-                className="text-[10px] text-[#9B1C1C] uppercase mb-4 font-bold tracking-widest"
+                className="text-[9px] text-[#C17F24] uppercase mb-4 font-bold tracking-widest"
               >
                 YOUR ROLE
               </label>
-              <div className="flex flex-wrap gap-3">
-                {ROLES.map((role) => (
+              <div className="flex flex-wrap gap-[8px] mt-[12px]">
+                {PRESET_ROLES.map((role) => (
                   <button
                     key={role}
                     type="button"
-                    onClick={() => setSelectedRole(role)}
+                    onClick={() => {
+                      setSelectedRole(role);
+                      setIsCustom(false);
+                      setCustomRole("");
+                    }}
                     style={{
                       fontFamily: "var(--font-dm-sans), DM Sans, sans-serif",
+                      border:
+                        selectedRole === role && !isCustom
+                          ? "1px solid #C17F24"
+                          : "1px solid rgba(193,127,36,0.2)",
+                      background:
+                        selectedRole === role && !isCustom
+                          ? "rgba(193,127,36,0.08)"
+                          : "transparent",
+                      color:
+                        selectedRole === role && !isCustom
+                          ? "#C17F24"
+                          : "#4A4740",
+                      padding: "8px 16px",
                     }}
-                    className={`px-5 py-2.5 rounded-full text-[13px] font-medium transition-all cursor-pointer ${
-                      selectedRole === role
-                        ? "bg-[#1A1510] text-white border border-[#1A1510]"
-                        : "bg-white border border-[#E8E3DC] text-[#767676] hover:border-[#9B1C1C]/50 hover:text-[#1A1510]"
-                    }`}
+                    className="text-[12px] cursor-pointer rounded-0 transition-all"
                   >
                     {role}
                   </button>
                 ))}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsCustom(true);
+                    setSelectedRole("");
+                  }}
+                  style={{
+                    fontFamily: "var(--font-dm-sans), DM Sans, sans-serif",
+                    border: isCustom
+                      ? "1px solid #C17F24"
+                      : "1px solid rgba(193,127,36,0.2)",
+                    background: isCustom
+                      ? "rgba(193,127,36,0.08)"
+                      : "transparent",
+                    color: isCustom ? "#C17F24" : "#4A4740",
+                    padding: "8px 16px",
+                  }}
+                  className="text-[12px] cursor-pointer rounded-0 transition-all"
+                >
+                  Custom +
+                </button>
               </div>
+
+              {isCustom && (
+                <div className="mt-[12px]">
+                  <input
+                    type="text"
+                    placeholder="Enter your role..."
+                    style={{
+                      fontFamily: "var(--font-dm-sans), DM Sans, sans-serif",
+                    }}
+                    className="w-full bg-transparent border-none border-b border-[rgba(193,127,36,0.3)] py-[8px] text-[14px] text-[#1A1510] focus:outline-none focus:border-[#C17F24] transition-all placeholder:text-[#B8B0A8]"
+                    value={customRole}
+                    onChange={(e) => {
+                      setCustomRole(e.target.value);
+                      setSelectedRole(e.target.value);
+                    }}
+                  />
+                </div>
+              )}
             </div>
 
             {/* Join Button */}
             <button
               type="submit"
-              disabled={loading || !name}
+              disabled={isButtonDisabled}
               style={{
                 fontFamily: "var(--font-mono), IBM Plex Mono, monospace",
               }}
